@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def create_detailed_date_features(df, date_col='date'):
     df = df.copy()
     date_series = pd.to_datetime(df[date_col])
@@ -22,20 +23,32 @@ def create_detailed_date_features(df, date_col='date'):
     df['weekofmonth'] = (date_series.dt.day - 1) // 7 + 1
 
     month_to_season = {
-        12: 'Winter', 1: 'Winter', 2: 'Winter', 3: 'Spring', 4: 'Spring', 5: 'Spring',
-        6: 'Summer', 7: 'Summer', 8: 'Summer', 9: 'Autumn', 10: 'Autumn', 11: 'Autumn'
-    }
+        12: 'Winter',
+        1: 'Winter',
+        2: 'Winter',
+        3: 'Spring',
+        4: 'Spring',
+        5: 'Spring',
+        6: 'Summer',
+        7: 'Summer',
+        8: 'Summer',
+        9: 'Autumn',
+        10: 'Autumn',
+        11: 'Autumn'}
     df['season'] = df['month'].map(month_to_season)
 
     return df
+
 
 def create_missingness_flags(df, cols_to_flag_missing):
     df_processed = df.copy()
     for col in cols_to_flag_missing:
         if col in df_processed.columns:
-            df_processed[f'hasmissing_{col}'] = df_processed[col].isnull().astype(int)
+            df_processed[f'hasmissing_{
+                col}'] = df_processed[col].isnull().astype(int)
             df_processed[col] = df_processed[col].fillna('Unknown')
     return df_processed
+
 
 def categorize_transactions(df: pd.DataFrame,
                             column_name: str) -> pd.DataFrame:
@@ -97,23 +110,42 @@ def categorize_transactions(df: pd.DataFrame,
     }
 
     df = df.copy()
-    df[column_name + '_grouped'] = df[column_name].map(category_map).fillna('Other_Transaction')
+    df[column_name +
+       '_grouped'] = df[column_name].map(category_map).fillna('Other_Transaction')
     return df
 
 
 district_mapping = {
-
-    'Hor Al Anz': 'Deira', 'Naif': 'Deira', 'Al Ras': 'Deira', 'Al Muteena': 'Deira',
-    'Al Dhagaya': 'Deira', 'Al Waheda': 'Deira', 'Abu Hail': 'Deira', 'Al Murqabat': 'Deira',
-    'Al Mararr': 'Deira', 'Al Rega': 'Deira', 'Al Baraha': 'Deira', 'Rega Al Buteen': 'Deira',
-    'Al Buteen': 'Deira', 'Al Sabkha': 'Deira', 'Al Khabeesi': 'Deira', 'Eyal Nasser': 'Deira',
-    'Hor Al Anz East': 'Deira', 'Al Mamzer': 'Deira', 'Port Saeed': 'Deira',
-
-    'Al Kifaf': 'Bur Dubai', 'Al Suq Al Kabeer': 'Bur Dubai', 'Mankhool': 'Bur Dubai',
-    'Al Raffa': 'Bur Dubai', 'Al Hamriya': 'Bur Dubai', 'Al Karama': 'Bur Dubai',
-    'Al Jafliya': 'Bur Dubai', 'Um Hurair Second': 'Bur Dubai', 'Um Hurair First': 'Bur Dubai',
-    'Oud Metha': 'Bur Dubai', 'Al Hudaiba': 'Bur Dubai',
-
+    'Hor Al Anz': 'Deira',
+    'Naif': 'Deira',
+    'Al Ras': 'Deira',
+    'Al Muteena': 'Deira',
+    'Al Dhagaya': 'Deira',
+    'Al Waheda': 'Deira',
+    'Abu Hail': 'Deira',
+    'Al Murqabat': 'Deira',
+    'Al Mararr': 'Deira',
+    'Al Rega': 'Deira',
+    'Al Baraha': 'Deira',
+    'Rega Al Buteen': 'Deira',
+    'Al Buteen': 'Deira',
+    'Al Sabkha': 'Deira',
+    'Al Khabeesi': 'Deira',
+    'Eyal Nasser': 'Deira',
+    'Hor Al Anz East': 'Deira',
+    'Al Mamzer': 'Deira',
+    'Port Saeed': 'Deira',
+    'Al Kifaf': 'Bur Dubai',
+    'Al Suq Al Kabeer': 'Bur Dubai',
+    'Mankhool': 'Bur Dubai',
+    'Al Raffa': 'Bur Dubai',
+    'Al Hamriya': 'Bur Dubai',
+    'Al Karama': 'Bur Dubai',
+    'Al Jafliya': 'Bur Dubai',
+    'Um Hurair Second': 'Bur Dubai',
+    'Um Hurair First': 'Bur Dubai',
+    'Oud Metha': 'Bur Dubai',
+    'Al Hudaiba': 'Bur Dubai',
     'Um Suqaim Third': 'Coastal Strip (Jumeirah/Umm Suqeim)',
     'Um Suqaim Second': 'Coastal Strip (Jumeirah/Umm Suqeim)',
     'Jumeirah First': 'Coastal Strip (Jumeirah/Umm Suqeim)',
@@ -127,14 +159,12 @@ district_mapping = {
     'Al Bada': 'Coastal Strip (Jumeirah/Umm Suqeim)',
     'Al Manara': 'Coastal Strip (Jumeirah/Umm Suqeim)',
     'Al Wasl': 'Coastal Strip (Jumeirah/Umm Suqeim)',
-
     'Business Bay': 'Downtown Dubai & Business Bay',
     'Burj Khalifa': 'Downtown Dubai & Business Bay',
     'Zaabeel Second': 'Downtown Dubai & Business Bay',
     'Zaabeel First': 'Downtown Dubai & Business Bay',
     'Trade Center Second': 'Downtown Dubai & Business Bay',
     'Trade Center First': 'Downtown Dubai & Business Bay',
-
     'Hadaeq Sheikh Mohammed Bin Rashid': 'Meydan & Nad Al Shiba',
     'Al Merkadh': 'Meydan & Nad Al Shiba',
     'Nad Al Shiba First': 'Meydan & Nad Al Shiba',
@@ -143,7 +173,6 @@ district_mapping = {
     'Nad Al Shiba Fourth': 'Meydan & Nad Al Shiba',
     'Nad Al Shiba Second': 'Meydan & Nad Al Shiba',
     'Madinat Latifa': 'Meydan & Nad Al Shiba',
-
     'Al Barsha South Fourth': 'Al Barsha & Al Quoz',
     'Al Barsha South Fifth': 'Al Barsha & Al Quoz',
     'Al Goze First': 'Al Barsha & Al Quoz',
@@ -155,19 +184,15 @@ district_mapping = {
     'Al Barshaa South Second': 'Al Barsha & Al Quoz',
     'Al Barshaa South First': 'Al Barsha & Al Quoz',
     'Al Goze Third': 'Al Barsha & Al Quoz',
-
     'Al Thanyah Third': 'TECOM, Greens & Emirates Hills Area',
     'Al Thanyah Fifth': 'TECOM, Greens & Emirates Hills Area',
     'Al Thanayah Fourth': 'TECOM, Greens & Emirates Hills Area',
     'Al Safouh Second': 'TECOM, Greens & Emirates Hills Area',
     'Al Thanyah First': 'TECOM, Greens & Emirates Hills Area',
     'Al Safouh First': 'TECOM, Greens & Emirates Hills Area',
-
     'Marsa Dubai': 'Dubai Marina & JBR',
     'Al Khairan First': 'Dubai Marina & JBR',
-
     'Palm Jumeirah': 'Palm Jumeirah',
-
     'Al Yelayiss 1': 'Jebel Ali & Dubai South West',
     'Al Kheeran': 'Jebel Ali & Dubai South West',
     'Al Yelayiss 2': 'Jebel Ali & Dubai South West',
@@ -186,7 +211,6 @@ district_mapping = {
     'Al Yelayiss 5': 'Jebel Ali & Dubai South West',
     'Hessyan Second': 'Jebel Ali & Dubai South West',
     'Saih Shuaib 3': 'Jebel Ali & Dubai South West',
-
     'Wadi Al Safa 5': 'Dubai South / New Developments',
     'Me\'Aisem First': 'Dubai South / New Developments',
     'Wadi Al Safa 6': 'Dubai South / New Developments',
@@ -211,32 +235,49 @@ district_mapping = {
     'Al Rowaiyah First': 'Dubai South / New Developments',
     'Al Eyas': 'Dubai South / New Developments',
     'Me\'Aisem Second': 'Dubai South / New Developments',
-
-    'Al Warsan First': 'Eastern Dubai', 'Nadd Hessa': 'Eastern Dubai',
-    'Al Mizhar Second': 'Eastern Dubai', 'Al Mizhar Third': 'Eastern Dubai',
-    'Al Aweer First': 'Eastern Dubai', 'Warsan Fourth': 'Eastern Dubai',
-    'Mirdif': 'Eastern Dubai', 'Al Khawaneej Second': 'Eastern Dubai',
-    'Al Warqa Third': 'Eastern Dubai', 'Al Mizhar First': 'Eastern Dubai',
-    'Al Warsan Second': 'Eastern Dubai', 'Nad Al Hamar': 'Eastern Dubai',
-    'Al Warqa Fourth': 'Eastern Dubai', 'Al Warqa First': 'Eastern Dubai',
-    'Al Aweer Second': 'Eastern Dubai', 'Al Khawaneej First': 'Eastern Dubai',
-    'Al Warqa Second': 'Eastern Dubai', 'Wadi Al Amardi': 'Eastern Dubai',
-    'Mushrif': 'Eastern Dubai', 'Al Ttay': 'Eastern Dubai',
-
-    'Muhaisanah Third': 'North-Eastern Dubai', 'Muhaisanah First': 'North-Eastern Dubai',
-    'Al Twar First': 'North-Eastern Dubai', 'Al Nahda First': 'North-Eastern Dubai',
-    'Al Twar Fourth': 'North-Eastern Dubai', 'Al Nahda Second': 'North-Eastern Dubai',
-    'Al Twar Third': 'North-Eastern Dubai', 'Oud Al Muteena First': 'North-Eastern Dubai',
-    'Al Twar Second': 'North-Eastern Dubai', 'Al Qusais Second': 'North-Eastern Dubai',
-    'Al Qusais Industrial Fourth': 'North-Eastern Dubai', 'Al Qusais First': 'North-Eastern Dubai',
-    'Al Qusais Industrial Fifth': 'North-Eastern Dubai', 'Muhaisanah Fourth': 'North-Eastern Dubai',
-    'Muhaisanah Second': 'North-Eastern Dubai', 'Al Qusais Industrial Third': 'North-Eastern Dubai',
-    'Al Qusais Industrial First': 'North-Eastern Dubai', 'Al Qusais Industrial Second': 'North-Eastern Dubai',
-
-    'Madinat Al Mataar': 'Airport & Nearby Areas', 'Al Rashidiya': 'Airport & Nearby Areas',
-    'Al Garhoud': 'Airport & Nearby Areas', 'Nad Shamma': 'Airport & Nearby Areas',
+    'Al Warsan First': 'Eastern Dubai',
+    'Nadd Hessa': 'Eastern Dubai',
+    'Al Mizhar Second': 'Eastern Dubai',
+    'Al Mizhar Third': 'Eastern Dubai',
+    'Al Aweer First': 'Eastern Dubai',
+    'Warsan Fourth': 'Eastern Dubai',
+    'Mirdif': 'Eastern Dubai',
+    'Al Khawaneej Second': 'Eastern Dubai',
+    'Al Warqa Third': 'Eastern Dubai',
+    'Al Mizhar First': 'Eastern Dubai',
+    'Al Warsan Second': 'Eastern Dubai',
+    'Nad Al Hamar': 'Eastern Dubai',
+    'Al Warqa Fourth': 'Eastern Dubai',
+    'Al Warqa First': 'Eastern Dubai',
+    'Al Aweer Second': 'Eastern Dubai',
+    'Al Khawaneej First': 'Eastern Dubai',
+    'Al Warqa Second': 'Eastern Dubai',
+    'Wadi Al Amardi': 'Eastern Dubai',
+    'Mushrif': 'Eastern Dubai',
+    'Al Ttay': 'Eastern Dubai',
+    'Muhaisanah Third': 'North-Eastern Dubai',
+    'Muhaisanah First': 'North-Eastern Dubai',
+    'Al Twar First': 'North-Eastern Dubai',
+    'Al Nahda First': 'North-Eastern Dubai',
+    'Al Twar Fourth': 'North-Eastern Dubai',
+    'Al Nahda Second': 'North-Eastern Dubai',
+    'Al Twar Third': 'North-Eastern Dubai',
+    'Oud Al Muteena First': 'North-Eastern Dubai',
+    'Al Twar Second': 'North-Eastern Dubai',
+    'Al Qusais Second': 'North-Eastern Dubai',
+    'Al Qusais Industrial Fourth': 'North-Eastern Dubai',
+    'Al Qusais First': 'North-Eastern Dubai',
+    'Al Qusais Industrial Fifth': 'North-Eastern Dubai',
+    'Muhaisanah Fourth': 'North-Eastern Dubai',
+    'Muhaisanah Second': 'North-Eastern Dubai',
+    'Al Qusais Industrial Third': 'North-Eastern Dubai',
+    'Al Qusais Industrial First': 'North-Eastern Dubai',
+    'Al Qusais Industrial Second': 'North-Eastern Dubai',
+    'Madinat Al Mataar': 'Airport & Nearby Areas',
+    'Al Rashidiya': 'Airport & Nearby Areas',
+    'Al Garhoud': 'Airport & Nearby Areas',
+    'Nad Shamma': 'Airport & Nearby Areas',
     'Um Ramool': 'Airport & Nearby Areas',
-
     'Al Jadaf': 'Industrial Areas (Central/East)',
     'Ras Al Khor Industrial First': 'Industrial Areas (Central/East)',
     'Ras Al Khor Industrial Third': 'Industrial Areas (Central/East)',
@@ -245,17 +286,20 @@ district_mapping = {
     'Al Goze Industrial Fourth': 'Industrial Areas (Central/East)',
     'Ras Al Khor Industrial Second': 'Industrial Areas (Central/East)',
     'Bukadra': 'Industrial Areas (Central/East)',
+    'Island 2': 'Islands & Special Zones',
+    'Madinat Dubai Almelaheyah': 'Islands & Special Zones',
+    'World Islands': 'Islands & Special Zones',
+    'Palm Deira': 'Islands & Special Zones',
+    'Hatta': 'Hatta'}
 
-    'Island 2': 'Islands & Special Zones', 'Madinat Dubai Almelaheyah': 'Islands & Special Zones',
-    'World Islands': 'Islands & Special Zones', 'Palm Deira': 'Islands & Special Zones',
 
-    'Hatta': 'Hatta'
-}
-
-
-def add_district_column(df, area_col_name='area_name_en', new_col_name='district'):
+def add_district_column(
+        df,
+        area_col_name='area_name_en',
+        new_col_name='district'):
     df_processed = df.copy()
-    df_processed[new_col_name] = df_processed[area_col_name].map(district_mapping)
+    df_processed[new_col_name] = df_processed[area_col_name].map(
+        district_mapping)
 
     unmapped_count = df_processed[new_col_name].isnull().sum()
     if unmapped_count > 0:

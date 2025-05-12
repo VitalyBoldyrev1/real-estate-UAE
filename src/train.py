@@ -15,10 +15,12 @@ import os
 
 
 class ModelTrainer:
-    def __init__(self, experiment_name="CatBoost_Dubai_Real_Estate", model_base_name="catboost_dubai_property_model"):
+    def __init__(self, experiment_name="CatBoost_Dubai_Real_Estate",
+                 model_base_name="catboost_dubai_property_model"):
         self.experiment_name = experiment_name
         self.model_base_name = model_base_name
-        mlflow.set_tracking_uri("file:///Users/vitalyboldyrev/real_estate_uae/mlruns")
+        mlflow.set_tracking_uri(
+            "file:///Users/vitalyboldyrev/real_estate_uae/mlruns")
         mlflow.set_experiment(experiment_name)
         self.client = MlflowClient()
         print(f"MLflow experiment set to: {self.experiment_name}")
@@ -68,7 +70,7 @@ class ModelTrainer:
             if not runs:
                 return "v1"
             latest = runs[0].data.tags["mlflow.runName"].split("_v")[-1]
-            return f"v{int(latest)+1}"
+            return f"v{int(latest) + 1}"
         except Exception as e:
             print("Version resolution failed:", e)
             return "v1"
@@ -84,9 +86,11 @@ class ModelTrainer:
         print("Running Optuna search …")
         study = optuna.create_study(
             direction="minimize",
-            sampler=TPESampler(seed=42, multivariate=True, n_startup_trials=10),
-            pruner=optuna.pruners.MedianPruner()
-        )
+            sampler=TPESampler(
+                seed=42,
+                multivariate=True,
+                n_startup_trials=10),
+            pruner=optuna.pruners.MedianPruner())
 
         study.optimize(
             lambda trial: self._objective(trial,
@@ -95,7 +99,7 @@ class ModelTrainer:
                                           cv_splits_for_optuna),
             n_trials=n_trials,
             n_jobs=1,
-            timeout=3*60*60
+            timeout=3 * 60 * 60
         )
 
         best_params = study.best_params
@@ -126,14 +130,19 @@ class ModelTrainer:
             y_pred_train = final_model.predict(X_train)
             y_pred_test = final_model.predict(X_test)
 
-            train_rmse = np.sqrt(mean_squared_error(np.expm1(y_train), np.expm1(y_pred_train)))
-            test_rmse = np.sqrt(mean_squared_error(y_test, np.expm1(y_pred_test)))
+            train_rmse = np.sqrt(
+                mean_squared_error(
+                    np.expm1(y_train),
+                    np.expm1(y_pred_train)))
+            test_rmse = np.sqrt(
+                mean_squared_error(
+                    y_test, np.expm1(y_pred_test)))
             test_mae = mean_absolute_error(y_test, np.expm1(y_pred_test))
             test_r2 = r2_score(y_test, np.expm1(y_pred_test))
-            #train_rmse = np.sqrt(mean_squared_error(y_train, y_pred_train))
-            #test_rmse = np.sqrt(mean_squared_error(y_test, y_pred_test))
-            #test_mae = mean_absolute_error(y_test, y_pred_test)
-            #test_r2 = r2_score(y_test, y_pred_test)
+            # train_rmse = np.sqrt(mean_squared_error(y_train, y_pred_train))
+            # test_rmse = np.sqrt(mean_squared_error(y_test, y_pred_test))
+            # test_mae = mean_absolute_error(y_test, y_pred_test)
+            # test_r2 = r2_score(y_test, y_pred_test)
 
             mlflow.log_metrics({
                 "optuna_best_cv_score_neg_rmse": study.best_value,
@@ -151,7 +160,9 @@ class ModelTrainer:
                 artifact_path=self.model_base_name,
                 registered_model_name=self.model_base_name
             )
-            print(f"Model logged to MLflow with artifact path: {self.model_base_name}")
+            print(
+                f"Model logged to MLflow with artifact path: {
+                    self.model_base_name}")
 
             print("Calculating SHAP values for X_train...")
             explainer = shap.TreeExplainer(final_model)
@@ -161,15 +172,22 @@ class ModelTrainer:
             if not os.path.exists(shap_output_dir):
                 os.makedirs(shap_output_dir)
 
-            shap_summary_path = os.path.join(shap_output_dir, f"{run_name}_shap_summary_bar.png")
+            shap_summary_path = os.path.join(
+                shap_output_dir, f"{run_name}_shap_summary_bar.png")
 
             plt.figure()
-            shap.summary_plot(shap_values, X_train, plot_type="bar", show=False, max_display=25)  # Увеличил max_display
+            shap.summary_plot(
+                shap_values,
+                X_train,
+                plot_type="bar",
+                show=False,
+                max_display=25)  # Увеличил max_display
             plt.tight_layout()
             plt.savefig(shap_summary_path)
             plt.close()
             mlflow.log_artifact(shap_summary_path, artifact_path="shap_plots")
-            print(f"SHAP summary plot (bar) saved to {shap_summary_path} and logged.")
+            print(f"SHAP summary plot (bar) saved to {
+                  shap_summary_path} and logged.")
 
         print(f"\n--- Training Summary ({run_name}) ---")
         print(f"Best Optuna CV (-RMSE): {study.best_value:.4f}")

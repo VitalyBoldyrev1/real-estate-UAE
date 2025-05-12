@@ -16,5 +16,5 @@ dependencies = [
     "seaborn==0.13.0",
     "scipy==1.15.3",
     "numpy==2.2.4",
-
+    "autopep8>=2.3.2",
 ]

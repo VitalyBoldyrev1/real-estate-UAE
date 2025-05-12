@@ -18,3 +18,4 @@ wheels/
 !/mlruns/676234145390779711/
 !/catboost_info/
 !/.ipynb_checkpoints/
+!/mlruns/.trash/

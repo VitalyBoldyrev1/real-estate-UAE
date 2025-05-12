@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def detect_outliers_iqr(df: pd.DataFrame,
                         column_name: pd.Series,
                         weight: int) -> list[int]:
@@ -18,10 +19,12 @@ def detect_outliers_iqr(df: pd.DataFrame,
     print(f"Lower bound: {lower_bound:.2f}")
     print(f"Upper bound: {upper_bound:.2f}")
 
-    outliers_indices = df.index[(df[column_name] < lower_bound) | (df[column_name] > upper_bound)]
+    outliers_indices = df.index[(df[column_name] < lower_bound) | (
+        df[column_name] > upper_bound)]
     print(f"Found {len(outliers_indices)} anomalies.")
 
     return outliers_indices
+
 
 def calculate_correlations(df: pd.DataFrame,
                            target_col: str,
