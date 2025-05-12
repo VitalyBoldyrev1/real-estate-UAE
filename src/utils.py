@@ -9,13 +9,13 @@ def detect_outliers_iqr(df: pd.DataFrame,
     Detecting anomalies using IQR
     """
 
-    Q1 = df[column_name].quantile(0.25)
-    Q3 = df[column_name].quantile(0.75)
-    IQR = Q3 - Q1
-    lower_bound = Q1 - weight * IQR
-    upper_bound = Q3 + weight * IQR
+    q1 = df[column_name].quantile(0.25)
+    q3 = df[column_name].quantile(0.75)
+    iqr = q3 - q1
+    lower_bound = q1 - weight * iqr
+    upper_bound = q3 + weight * iqr
 
-    print(f"Q1: {Q1:.2f}, Q3: {Q3:.2f}, IQR: {IQR:.2f}")
+    print(f"q1: {q1:.2f}, q3: {q3:.2f}, iqr: {iqr:.2f}")
     print(f"Lower bound: {lower_bound:.2f}")
     print(f"Upper bound: {upper_bound:.2f}")
 
@@ -38,7 +38,7 @@ def calculate_correlations(df: pd.DataFrame,
     correlations = correlations.drop(target_col)
 
     print("Pearson correlation")
-    print(f'\nMost powerful correlations')
+    print('\nMost powerful correlations')
     print(correlations.head(top_n))
 
 

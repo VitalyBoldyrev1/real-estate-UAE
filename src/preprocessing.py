@@ -44,8 +44,7 @@ def create_missingness_flags(df, cols_to_flag_missing):
     df_processed = df.copy()
     for col in cols_to_flag_missing:
         if col in df_processed.columns:
-            df_processed[f'hasmissing_{
-                col}'] = df_processed[col].isnull().astype(int)
+            df_processed[f'hasmissing_{col}'] = df_processed[col].isnull().astype(int)
             df_processed[col] = df_processed[col].fillna('Unknown')
     return df_processed
 

@@ -1,3 +1,4 @@
+"""Main entry point for the app."""
 def main():
     print("Hello from real-estate-uae!")
 

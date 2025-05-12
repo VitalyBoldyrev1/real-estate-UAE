@@ -161,8 +161,7 @@ class ModelTrainer:
                 registered_model_name=self.model_base_name
             )
             print(
-                f"Model logged to MLflow with artifact path: {
-                    self.model_base_name}")
+                f"Model logged to MLflow with artifact path: {self.model_base_name}")
 
             print("Calculating SHAP values for X_train...")
             explainer = shap.TreeExplainer(final_model)

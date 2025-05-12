@@ -103,16 +103,14 @@ def create_input_dataframe(
     if not final_project_name:
         final_project_name = unknown_placeholder
     elif final_project_name not in known_projects_set:
-        st.info(f"Name of '{final_project_name}' not found. '{
-            unknown_placeholder}' will be used instead.")
+        st.info(f"Name of '{final_project_name}' not found. '{unknown_placeholder}' will be used instead.")
         final_project_name = unknown_placeholder
 
     final_master_project_name = master_project.strip()
     if not final_master_project_name:
         final_master_project_name = unknown_placeholder
     elif final_master_project_name not in known_master_projects_set:
-        st.info(f"Name of '{final_master_project_name}' not found. '{
-            unknown_placeholder}' will be used instead.")
+        st.info(f"Name of '{final_master_project_name}' not found. '{unknown_placeholder}' will be used instead.")
         final_master_project_name = unknown_placeholder
 
     input_data = {
@@ -183,8 +181,7 @@ else:
             selected_project_from_list = st.selectbox("Search or choose a project:", options=[
                                                       ""] + sorted(list(KNOWN_PROJECT_NAMES)))
             if selected_project_from_list and not project_name_input_str:
-                st.caption(f"Selected project: {selected_project_from_list}. You can copy it to the field above or leave it blank to use '{
-                    UNKNOWN_VALUE_PLACEHOLDER}'.")
+                st.caption(f"Selected project: {selected_project_from_list}. You can copy it to the field above or leave it blank to use '{UNKNOWN_VALUE_PLACEHOLDER}'.")
 
         master_project_name_input_str = st.text_input(
             "Developer Name:",
@@ -197,8 +194,7 @@ else:
                 sorted(
                     list(KNOWN_MASTER_PROJECT_NAMES)))
             if selected_master_project_from_list and not master_project_name_input_str:
-                st.caption(f"Selected developer project: {
-                    selected_master_project_from_list}. You can copy it to the field above or leave it blank to use '{UNKNOWN_VALUE_PLACEHOLDER}'.")
+                st.caption(f"Selected developer project: {selected_master_project_from_list}. You can copy it to the field above or leave it blank to use '{UNKNOWN_VALUE_PLACEHOLDER}'.")
 
     current_date_val = datetime.date.today()
     if st.button("Predict Price", type="primary", use_container_width=True):
@@ -226,8 +222,7 @@ else:
                       value=f"{predicted_price_per_sqm:,.2f}")
             st.metric(
                 label="Estimated Total Property Price (AED)",
-                value=f"{
-                    total_price:,.0f}")
+                value=f"{total_price:,.0f}")
 
         except Exception as e:
             st.error(f"Error during prediction: {e}")
