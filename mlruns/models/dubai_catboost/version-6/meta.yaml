@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1746898190061
+current_stage: None
+description: null
+last_updated_timestamp: 1746898190061
+name: dubai_catboost
+run_id: 53f99f41cf57404290f75d4047b452fa
+run_link: null
+source: file:///Users/vitalyboldyrev/real_estate_uae/mlruns/676234145390779711/53f99f41cf57404290f75d4047b452fa/artifacts/dubai_catboost
+status: READY
+status_message: null
+storage_location: file:///Users/vitalyboldyrev/real_estate_uae/mlruns/676234145390779711/53f99f41cf57404290f75d4047b452fa/artifacts/dubai_catboost
+user_id: null
+version: 6

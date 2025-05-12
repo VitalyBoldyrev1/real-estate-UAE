@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+!/.gitignore
+!/Transactions.csv
+!/src/mlruns/.trash/
+!/src/mlruns/0/
+!/src/mlruns/
+!/mlruns/.trash/
+!/mlruns/0/
+!/mlruns/676234145390779711/
+!/catboost_info/
+!/.ipynb_checkpoints/
