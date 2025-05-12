@@ -4,10 +4,12 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 st.set_page_config(layout="wide")
+from pathlib import Path
 
-MODEL_PATH = "/Users/vitalyboldyrev/real_estate_uae/dubai_model_v11.cbm"
-KNOWN_PROJECT_NAMES_PATH = "/Users/vitalyboldyrev/real_estate_uae/project_name_en.txt"
-KNOWN_MASTER_PROJECT_NAMES_PATH = "/Users/vitalyboldyrev/real_estate_uae/master_project_en.txt"
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "dubai_model_v11.cbm"
+PROJECT_NAME_PATH = BASE_DIR / "data" / "project_name_en.txt"
+MASTER_PROJECT_PATH = BASE_DIR / "data" / "master_project_en.txt"
 
 
 TRANS_GROUP_EN_OPTIONS = sorted(['Sales', 'Mortgages', 'Gifts'])
@@ -68,11 +70,11 @@ def load_model_and_artifacts():
 
     known_projects.update(
         load_known_values_from_file(
-            KNOWN_PROJECT_NAMES_PATH,
+            PROJECT_NAME_PATH,
             known_projects))
     known_master_projects.update(
         load_known_values_from_file(
-            KNOWN_MASTER_PROJECT_NAMES_PATH,
+            MASTER_PROJECT_PATH,
             known_master_projects))
 
     print(f"Loaded {len(known_projects)} known project_name_en.")
