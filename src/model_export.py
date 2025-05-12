@@ -30,8 +30,7 @@ class ModelExporter:
 
         if not runs:
             raise ValueError(
-                f"No run found with name '{
-                    self.model_run_name}'.")
+                f"No run found with name '{self.model_run_name}'.")
 
         return runs[0].info.run_id
 
