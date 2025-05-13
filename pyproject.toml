@@ -17,4 +17,5 @@ dependencies = [
     "scipy==1.15.3",
     "numpy==2.2.4",
     "autopep8>=2.3.2",
+    "pathlib == 1.0"
 ]

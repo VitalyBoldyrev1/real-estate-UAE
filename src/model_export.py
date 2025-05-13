@@ -5,15 +5,15 @@ from mlflow.tracking import MlflowClient
 
 class ModelExporter:
     def __init__(
-            self,
-            experiment_name="CatBoost_Dubai_Real_Estate",
-            model_run_name="dubai_catboost_v11",
-            model_base_name="catboost_dubai_property_model"):
+        self,
+        experiment_name="CatBoost_Dubai_Real_Estate",
+        model_run_name="dubai_catboost_v11",
+        model_base_name="catboost_dubai_property_model",
+    ):
         self.experiment_name = experiment_name
         self.model_run_name = model_run_name
         self.model_base_name = model_base_name
-        mlflow.set_tracking_uri(
-            "file:///Users/vitalyboldyrev/real_estate_uae/mlruns")
+        mlflow.set_tracking_uri("file:///Users/vitalyboldyrev/real_estate_uae/mlruns")
         self.client = MlflowClient()
 
     def get_run_id_by_run_name(self):
@@ -25,12 +25,11 @@ class ModelExporter:
             [experiment.experiment_id],
             filter_string=f"tags.mlflow.runName = '{self.model_run_name}'",
             order_by=["attributes.start_time DESC"],
-            max_results=1
+            max_results=1,
         )
 
         if not runs:
-            raise ValueError(
-                f"No run found with name '{self.model_run_name}'.")
+            raise ValueError(f"No run found with name '{self.model_run_name}'.")
 
         return runs[0].info.run_id
 
