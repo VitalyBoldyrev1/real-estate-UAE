@@ -14,7 +14,7 @@ A web application based on the developed model is available at:
 ## 📄 Study Text
 
 The text of the study is available here:  
-🔗 [Link to the study text]()
+🔗 [Link to the study text](https://disk.yandex.ru/i/f35wp6SG1b7eXQ)
 
 ## 📁 Project Structure
 
