@@ -2,7 +2,7 @@
 
 
 def main():
-    print("Hello from real-estate-uae!")
+    print("Hello")
 
 
 if __name__ == "__main__":

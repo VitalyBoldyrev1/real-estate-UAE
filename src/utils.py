@@ -1,14 +1,20 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import warnings
+warnings.filterwarnings('ignore')
 
 
 def detect_outliers_iqr(
-    df: pd.DataFrame, column_name: pd.Series, weight: int
+    df: pd.DataFrame, column_name: str, weight: float
 ) -> list[int]:
     """
     Detecting anomalies using IQR
     """
 
+    # Calculate IQR bounds
     q1 = df[column_name].quantile(0.25)
     q3 = df[column_name].quantile(0.75)
     iqr = q3 - q1
@@ -18,7 +24,8 @@ def detect_outliers_iqr(
     print(f"q1: {q1:.2f}, q3: {q3:.2f}, iqr: {iqr:.2f}")
     print(f"Lower bound: {lower_bound:.2f}")
     print(f"Upper bound: {upper_bound:.2f}")
-
+    
+    # Find outlier indices
     outliers_indices = df.index[
         (df[column_name] < lower_bound) | (df[column_name] > upper_bound)
     ]
@@ -27,7 +34,11 @@ def detect_outliers_iqr(
     return outliers_indices
 
 
-def calculate_correlations(df: pd.DataFrame, target_col: str, top_n: int = 10):
+def calculate_correlations(
+        df: pd.DataFrame, 
+        target_col: str, 
+        top_n: int = 10
+        ) -> pd.Series:
     """
     Computes Pearson correlation
     """
@@ -47,8 +58,7 @@ def analyze_column(df: pd.DataFrame, col: str):
     """
 
     if col not in df.columns:
-        print(f"Column '{col}' not found in DataFrame.")
-        return
+        raise ValueError(f"Column '{col}' not found in DataFrame")
 
     print(f"{col}")
 
