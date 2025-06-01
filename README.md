@@ -14,20 +14,22 @@ A web application based on the developed model is available at:
 ## 📄 Study Text
 
 The text of the study is available here:  
-🔗 [Link to the study text]()
+🔗 [Link to the study text](https://disk.yandex.ru/i/f35wp6SG1b7eXQ)
 
 ## 📁 Project Structure
 
+```text
 real-estate-UAE/
-├── data/ # List of values in features essential for Streamlit
-├── models/ # Trained model
-├── notebook/ # Jupyter notebook with EDA and model training
-├── shap_outputs/ # SHAP visualizations for model interpretability
-├── src/ # Source code
-├── mlruns/ # MLflow experiment logs and artifacts
-├── main.py # Main application entry point
-├── pyproject.toml # Project configuration and dependencies
-├── uv.lock # Dependency lock file
-├── .gitignore # Git ignore rules
-├── .python-version # Python version specification
-└── README.md # Project description
+├── data/               # List of values in features essential for Streamlit
+├── models/             # Trained model
+├── notebook/           # Jupyter notebook with EDA and model training
+├── shap_outputs/       # SHAP visualizations for model interpretability
+├── src/                # Source code
+├── mlruns/             # MLflow experiment logs and artifacts
+├── main.py             # Main application entry point
+├── pyproject.toml      # Project configuration and dependencies
+├── uv.lock             # Dependency lock file
+├── .gitignore          # Git ignore rules
+├── .python-version     # Python version specification
+└── README.md           # Project description
+
