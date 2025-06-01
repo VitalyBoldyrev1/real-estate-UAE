@@ -20,16 +20,22 @@ The text of the study is available here:
 
 ```text
 real-estate-UAE/
-├── data/               # List of values in features essential for Streamlit
-├── models/             # Trained model
-├── notebook/           # Jupyter notebook with EDA and model training
-├── shap_outputs/       # SHAP visualizations for model interpretability
+├── .git/               # Git version control files
+├── data/               # Feature value lists for Streamlit
+├── models/             # Trained model artifacts
+├── notebook/           # Jupyter notebook with EDA and model training (model.ipynb)
 ├── src/                # Source code
-├── mlruns/             # MLflow experiment logs and artifacts
+│   ├── __init__.py
+│   ├── anomaly_detection.py # Functions for outlier detection
+│   ├── preprocessing.py     # Data preprocessing utilities
+│   ├── streamlit_app.py     # Code for the Streamlit web application
+│   ├── train.py             # Model training script
+│   └── utils.py             # Utility functions
+├── .gitignore          # Git ignore rules
 ├── main.py             # Main application entry point
 ├── pyproject.toml      # Project configuration and dependencies
-├── uv.lock             # Dependency lock file
-├── .gitignore          # Git ignore rules
-├── .python-version     # Python version specification
-└── README.md           # Project description
+├── README.md           # Project description
+└── uv.lock             # Dependency lock file
+```
+
 
